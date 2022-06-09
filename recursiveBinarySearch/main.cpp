@@ -3,12 +3,9 @@
 #include <stdlib.h>//qsort()
 #include <iostream>//cout
 
-//function given to qsort to compare values
-int intCompare(const void*, const void*);
-
 int main()
 {
-    constexpr size_t size = 40;
+    constexpr size_t size = 75;
     int arr[size];
 
     //fill array with random integers
@@ -17,7 +14,13 @@ int main()
         arr[i] = rand() % 1000;
 
     //sort the array of integers before searching for a specific int
-    qsort(arr, size, sizeof(*arr), intCompare);
+    qsort(arr, size, sizeof(*arr), 
+        [](const void* v0, const void* v1) -> int 
+        {
+            if( *(int*)v0 <  *(int*)v1  ) return -1;
+            if( *(int*)v0 == *(int*)v1  ) return 0;
+            if( *(int*)v0 >  *(int*)v1  ) return 1;
+        });
 
     //print the array out so the user can see 
     //what random integers are in array
@@ -50,11 +53,4 @@ int main()
     }
 
     return 0;
-}
-
-int intCompare(const void* v0, const void* v1)
-{
-    if( *(int*)v0 <  *(int*)v1  ) return -1;
-    if( *(int*)v0 == *(int*)v1  ) return 0;
-    if( *(int*)v0 >  *(int*)v1  ) return 1;
 }
