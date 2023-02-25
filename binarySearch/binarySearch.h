@@ -1,16 +1,5 @@
-#include <iostream>
-#include <vector>
-
-template <class T, class FwdIt> constexpr FwdIt binarySearch(FwdIt, FwdIt const, T const&);
-int cStyleBinarySearch(int* arr, int searchFor, int left, int right);
-
-int main()
-{
-    //a sorted container is needed for binary search!
-    std::vector b {10, 20, 22, 30, 31, 40, 41, 47, 51, 90, 100, 101, 110};
-    auto it = binarySearch(b.begin(), b.end(), 46);
-    std::cout << (it != b.end() ? "found!\n" : "not found :(\n");
-}
+#pragma once
+#include <iterator>//std::forward_iterator
 
 template <typename T> concept greaterThanComparable = requires(T t0, T t1){ t0 > t1;  };
 template <typename T> concept equalityComparable    = requires(T t0, T t1){ t0 == t1; };
