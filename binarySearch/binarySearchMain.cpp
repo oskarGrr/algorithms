@@ -1,7 +1,7 @@
 #include <iostream>
 #include <vector>
 
-template <class T, class FwdIt> constexpr auto binarySearch(FwdIt, FwdIt const, T const&);
+template <class T, class FwdIt> constexpr FwdIt binarySearch(FwdIt, FwdIt const, T const&);
 int cStyleBinarySearch(int* arr, int searchFor, int left, int right);
 
 int main()
@@ -12,13 +12,13 @@ int main()
     std::cout << (it != b.end() ? "found!\n" : "not found :(\n");
 }
 
-template <typename T> concept lessThanComparable = requires(T t0, T t1){ t0 < t1; };
-template <typename T> concept equalityComparable = requires(T t0, T t1){ t0 == t1; };
+template <typename T> concept greaterThanComparable = requires(T t0, T t1){ t0 > t1;  };
+template <typename T> concept equalityComparable    = requires(T t0, T t1){ t0 == t1; };
 
 //returns an iterator to the T that you are searching for otherwise returns end
 template <typename T, typename FwdIt>
-requires lessThanComparable<T> && equalityComparable<T> && std::forward_iterator<FwdIt>
-constexpr auto binarySearch(FwdIt begin, FwdIt const end, T const& searchFor)
+requires greaterThanComparable<T> && equalityComparable<T> && std::forward_iterator<FwdIt>
+constexpr FwdIt binarySearch(FwdIt begin, FwdIt const end, T const& searchFor)
 {
     FwdIt traveler;
     for(auto rangeSize = std::distance(begin, end); rangeSize > 0;)
